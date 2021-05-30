@@ -1,0 +1,23 @@
+Config { font = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "black"
+       , fgColor = "grey"
+       , alpha = 255
+       , position = TopW L 100
+       , allDesktops = True
+       , overrideRedirect = True
+       , lowerOnStart = True
+       , commands = [
+                      -- Run Network "wlp3s0" ["-L","0","-H","32", "--normal","green","--high","red"] 10
+		      Run Network "wlan0" ["--template", "Net: <tx>kB|<rx>kB", "-L","1000","-H","5000", "--low", "gray", "--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","3","-H","50", "--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+		    , Run Date "%a %d-%m-%Y %H:%M" "date" 10
+		    , Run Battery [ "--template" , "Batt: <acstatus>", "--normal", "darkorange", "--", "-o", "<left>% (<timeleft>)" ] 50
+		    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %battery% | %cpu% | %memory% | %wlan0% <fc=#ee9a00>%date%</fc>" }
